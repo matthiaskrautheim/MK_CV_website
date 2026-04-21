@@ -1,364 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Matthias Krautheim | Digital Solutions | IT Business Partnering</title>
-  <meta
-    name="description"
-    content="Professional website of Matthias Krautheim – digital solutions, IT business partnering, and leadership in regulated environments."
-  />
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Matthias Krautheim — Professional Profile</title>
+<link rel="stylesheet" href="../../colors_and_type.css" />
+<style>
+  body { margin: 0; background: linear-gradient(180deg, #f9fbfd 0%, var(--mk-bg) 100%); font-family: var(--font-sans); color: var(--fg-1); }
+  html { scroll-behavior: smooth; }
+  a { color: var(--mk-navy); }
+  @media (max-width: 980px) {
+    .cardgrid-3, .cardgrid-2 { grid-template-columns: 1fr !important; }
+    section#home > div { grid-template-columns: 1fr !important; }
+  }
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container nav-wrap">
-      <a class="brand" href="#home">Matthias Krautheim</a>
-      <nav class="main-nav" aria-label="Primary navigation">
-        <a href="#home">Home</a>
-        <a href="#profile">Profile</a>
-        <a href="#experience">Experience</a>
-        <a href="#contact">Contact</a>
-        <a class="button button-primary" href="assets/Matthias_Krautheim_CV.pdf">Download CV</a>
-      </nav>
-    </div>
-  </header>
+<div id="root"></div>
 
-  <main>
-    <section class="hero-section" id="home">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow">Professional Profile</p>
-          <h1>Digital Solutions | IT Business Partnering | Leadership in Regulated Environments</h1>
-          <p class="hero-name">Matthias Krautheim</p>
-          <p class="hero-subtitle">
-            More than 15 years of experience in digitalization, process improvement and
-            business-facing IT across R&amp;D, Product Supply and other highly regulated environments.
+<script type="text/babel" src="components/Icon.jsx"></script>
+<script type="text/babel" src="components/Button.jsx"></script>
+<script type="text/babel" src="components/Eyebrow.jsx"></script>
+<script type="text/babel" src="components/PortraitPlaceholder.jsx"></script>
+<script type="text/babel" src="components/SiteHeader.jsx"></script>
+<script type="text/babel" src="components/Section.jsx"></script>
+<script type="text/babel" src="components/Card.jsx"></script>
+<script type="text/babel" src="components/Hero.jsx"></script>
+<script type="text/babel" src="components/ExpertiseGrid.jsx"></script>
+<script type="text/babel" src="components/Timeline.jsx"></script>
+<script type="text/babel" src="components/TagList.jsx"></script>
+<script type="text/babel" src="components/DownloadBand.jsx"></script>
+<script type="text/babel" src="components/ContactPanel.jsx"></script>
+<script type="text/babel" src="components/SiteFooter.jsx"></script>
+
+<script type="text/babel">
+const EXPERIENCE = [
+  {
+    role: 'Associate Director Global Business Solutions | R&D and Product Supply',
+    company: 'Santen GmbH', location: 'Munich, Germany', period: '01/2019 – Present',
+    bullets: [
+      'Responsible IT Business Partner and team leader for the development and expansion of digital solutions globally and in EMEA for R&D and Product Supply',
+      'Budget planning and responsibility for software projects and operations',
+      'Part of a global organization aligning, coordinating and approving new projects',
+      'Consulting business functions on data-driven projects and applications for the use of Generative AI',
+    ],
+  },
+  {
+    role: 'Solution Manager & Senior Business Consultant',
+    company: 'OpenText Software GmbH', location: 'Munich, Germany', period: '05/2014 – 12/2018',
+    bullets: [
+      'Software project management and process design for external customers',
+      'Driving specialized software solutions and initiatives for regulated customers',
+      'Management of an international development team',
+    ],
+  },
+  {
+    role: 'IT Consultant',
+    company: 'NNIT Germany GmbH', location: 'Munich, Germany', period: '02/2013 – 04/2014',
+    summary: 'Consulting role in a regulated industry context, contributing to digital and IT-related initiatives.',
+  },
+  {
+    role: 'Application Project Manager',
+    company: 'Boehringer-Ingelheim Pharma GmbH & Co. KG', location: 'Biberach, Germany', period: '01/2008 – 01/2013',
+    summary: 'Project management role within a pharmaceutical environment, building the foundation for later business-facing digital and IT leadership responsibilities.',
+  },
+];
+
+const SKILLS = [
+  'Generative AI','Digital Solutions','IT Business Partnering','Portfolio Coordination',
+  'Project Management','R&D Systems','Product Supply','M365','Power BI Basics',
+  'SharePoint','Veeva Vault','RPA','Python Basics','HTML & JavaScript','SQL','GxP / GAMP5 / Annex 11',
+];
+
+function App() {
+  const [active, setActive] = React.useState('home');
+  const onNav = (e, id) => { setActive(id); };
+
+  return (
+    <>
+      <SiteHeader active={active} onNav={onNav} />
+      <main>
+        <Hero />
+
+        <Section narrow label="Introduction">
+          <Eyebrow>Introduction</Eyebrow>
+          <p style={{ fontSize: 18, lineHeight: 1.7, color: 'var(--fg-2)', margin: 0 }}>
+            I am a digital and IT business leader with extensive experience in supporting organizations
+            in regulated environments through digital solutions, process improvement and structured
+            business-IT collaboration. My background combines business consulting, solution leadership,
+            project management and international team coordination, with a particular focus on R&D,
+            Product Supply and life sciences-related settings.
           </p>
-          <p class="hero-text">
-            I support organizations in translating business needs into practical digital solutions,
-            structured collaboration and sustainable progress — with a strong focus on life sciences,
-            regulated industries and international environments.
-          </p>
-          <div class="hero-actions">
-            <a class="button button-primary" href="#experience">View Experience</a>
-            <a class="button button-secondary" href="assets/Matthias_Krautheim_CV.pdf">Download PDF CV</a>
-            <a class="button button-secondary" href="#contact">Contact</a>
+        </Section>
+
+        <Section id="profile" label="Core Expertise">
+          <SectionHeading
+            eyebrow="Profile"
+            title="Core Expertise"
+            lead="My professional focus combines digitalization, stakeholder alignment and structured delivery in international and regulated environments."
+          />
+          <ExpertiseGrid />
+        </Section>
+
+        <Section alt label="About &amp; Working Style">
+          <div className="cardgrid-2" style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 24, alignItems: 'start' }}>
+            <div style={{
+              borderRadius: 22,
+              overflow: 'hidden',
+              aspectRatio: '4 / 5',
+              background: 'var(--mk-navy-tint)',
+              border: '1px solid var(--mk-line)',
+              boxShadow: 'var(--shadow-lg)',
+              position: 'sticky', top: 96,
+            }}>
+              <img src="../../assets/portrait-street.jpg" alt="Matthias Krautheim"
+                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+            </div>
+            <div className="cardgrid-2" style={{ display: 'grid', gap: 20 }}>
+            <Panel title="About">
+              <p style={{ margin: '0 0 12px', color: 'var(--fg-3)', lineHeight: 1.65 }}>
+                I work at the intersection of business needs, digital solutions and strategic IT leadership.
+                Over the course of more than 15 years, I have supported organizations in highly regulated
+                environments in improving processes, enabling digitalization and addressing increasing
+                regulatory complexity.
+              </p>
+              <p style={{ margin: 0, color: 'var(--fg-3)', lineHeight: 1.65 }}>
+                In my current role, I am responsible as an IT Business Partner and team leader for the
+                development and expansion of digital solutions for global and regional functions in R&D
+                and Product Supply.
+              </p>
+            </Panel>
+            <Panel title="Working Style & Qualifications">
+              <p style={{ margin: '0 0 12px', color: 'var(--fg-3)', lineHeight: 1.65 }}>
+                My working style is structured, collaborative and business-oriented. I value clarity,
+                practical solutions and effective coordination across functions, teams and stakeholders.
+              </p>
+              <ul style={{ margin: 0, paddingLeft: 20, color: 'var(--fg-2)', lineHeight: 1.7 }}>
+                <li>International MBA — change management, consulting, leadership</li>
+                <li>Diploma Engineer (FH), Biomedical Engineering</li>
+                <li>German (native), English (business fluent), French (basic)</li>
+              </ul>
+            </Panel>
           </div>
-        </div>
-
-        <aside class="hero-panel" aria-label="Professional summary">
-          <div class="portrait-placeholder">
-            <span>Portrait Placeholder</span>
           </div>
-          <dl class="profile-facts">
-            <div>
-              <dt>Current focus</dt>
-              <dd>Digital solutions, business-facing IT, portfolio coordination</dd>
-            </div>
-            <div>
-              <dt>Industry context</dt>
-              <dd>Pharma, life sciences and other regulated environments</dd>
-            </div>
-            <div>
-              <dt>Business areas</dt>
-              <dd>R&amp;D, Product Supply, global collaboration</dd>
-            </div>
-            <div>
-              <dt>Location</dt>
-              <dd>Penzing, Bavaria, Germany</dd>
-            </div>
-          </dl>
-        </aside>
-      </div>
-    </section>
+        </Section>
 
-    <section class="section">
-      <div class="container narrow">
-        <h2>Introduction</h2>
-        <p class="section-intro">
-          I am a digital and IT business leader with extensive experience in supporting organizations
-          in regulated environments through digital solutions, process improvement and structured
-          business-IT collaboration. My background combines business consulting, solution leadership,
-          project management and international team coordination, with a particular focus on R&amp;D,
-          Product Supply and life sciences-related settings.
-        </p>
-      </div>
-    </section>
+        <Section id="experience" label="Experience">
+          <SectionHeading
+            eyebrow="Career"
+            title="Experience"
+            lead="A concise overview of my professional background, with emphasis on digital solutions, business-facing IT and regulated environments."
+          />
+          <Timeline items={EXPERIENCE} />
+        </Section>
 
-    <section class="section" id="profile">
-      <div class="container">
-        <div class="section-heading">
-          <h2>Core Expertise</h2>
-          <p class="section-intro">
-            My professional focus combines digitalization, stakeholder alignment and structured delivery
-            in international and regulated environments.
-          </p>
-        </div>
-
-        <div class="card-grid card-grid-3">
-          <article class="card">
-            <h3>Digital Solutions</h3>
-            <p>
-              Designing, expanding and supporting digital solutions for business-critical functions in
-              regulated environments.
-            </p>
-          </article>
-          <article class="card">
-            <h3>IT Business Partnering</h3>
-            <p>
-              Acting as a trusted interface between business functions and IT to identify needs,
-              shape initiatives and support delivery.
-            </p>
-          </article>
-          <article class="card">
-            <h3>R&amp;D and Product Supply</h3>
-            <p>
-              Strong experience in supporting R&amp;D teams and Product Supply organizations in their
-              digitalization efforts.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Leadership &amp; International Collaboration</h3>
-            <p>
-              Leading teams and working across international organizations to align, coordinate and
-              drive initiatives forward.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Project &amp; Portfolio Coordination</h3>
-            <p>
-              Supporting planning, prioritization, budgeting and oversight for software projects and
-              their operations.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Automation &amp; Generative AI</h3>
-            <p>
-              Exploring practical use cases for automation and Generative AI to improve business
-              processes and operational robustness.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-alt">
-      <div class="container card-grid card-grid-2">
-        <article class="panel">
-          <h2>About</h2>
-          <p>
-            I work at the intersection of business needs, digital solutions and strategic IT leadership.
-            Over the course of more than 15 years, I have supported organizations in highly regulated
-            environments in improving processes, enabling digitalization and addressing increasing
-            regulatory complexity.
-          </p>
-          <p>
-            In my current role, I am responsible as an IT Business Partner and team leader for the
-            development and expansion of digital solutions for global and regional functions in R&amp;D
-            and Product Supply. My previous roles have included solution management, senior business
-            consulting, software project management and support for regulated customers across
-            pharmaceuticals, medical technology and life sciences.
-          </p>
-          <p>
-            I bring together business consulting, structured execution and leadership in international
-            environments. My focus is on building practical digital solutions, improving processes,
-            supporting business stakeholders and helping organizations navigate complexity with clarity
-            and reliability.
-          </p>
-        </article>
-
-        <article class="panel">
-          <h2>Working Style &amp; Qualifications</h2>
-          <p>
-            My working style is structured, collaborative and business-oriented. I value clarity,
-            practical solutions and effective coordination across functions, teams and stakeholders.
-            I am particularly comfortable in international and regulated settings that require
-            reliability, accountability and thoughtful change.
-          </p>
-          <ul class="list-clean">
-            <li>International MBA with specialization in change management, consulting and leadership</li>
-            <li>Diploma Engineer (FH) in Biomedical Engineering</li>
-            <li>Leadership seminar and ongoing professional development</li>
-            <li>German (native), English (business fluent), French (basic)</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-heading">
-          <h2>Selected Highlights</h2>
-        </div>
-        <div class="card-grid card-grid-2">
-          <article class="card">
-            <ul class="list-clean">
-              <li>More than 15 years of experience supporting digitalization in regulated environments</li>
-              <li>Current leadership role focused on global and regional digital solutions for R&amp;D and Product Supply</li>
-              <li>Strong background in software project management, business consulting and solution leadership</li>
-            </ul>
-          </article>
-          <article class="card">
-            <ul class="list-clean">
-              <li>Experience across pharmaceuticals, medical technology and life sciences</li>
-              <li>International team leadership and cross-functional collaboration</li>
-              <li>Strong interest in automation, data-driven solutions and practical Generative AI use cases</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="experience">
-      <div class="container">
-        <div class="section-heading">
-          <h2>Experience</h2>
-          <p class="section-intro">
-            This section provides a concise overview of my professional background, with emphasis on
-            digital solutions, business-facing IT and regulated environments.
-          </p>
-        </div>
-
-        <div class="timeline">
-          <article class="timeline-item">
-            <div class="timeline-top">
-              <h3>Associate Director Global Business Solutions | R&amp;D and Product Supply</h3>
-              <p class="timeline-meta">Santen GmbH | Munich, Germany | 01/2019 – Present</p>
-            </div>
-            <ul class="list-clean">
-              <li>Responsible IT Business Partner and team leader for the development and expansion of digital solutions globally and in EMEA for R&amp;D and Product Supply</li>
-              <li>Budget planning and responsibility for software projects and operations</li>
-              <li>Part of a global organization aligning, coordinating and approving new projects</li>
-              <li>Consulting business functions on data-driven projects and applications for the use of Generative AI</li>
-            </ul>
-          </article>
-
-          <article class="timeline-item">
-            <div class="timeline-top">
-              <h3>Solution Manager &amp; Senior Business Consultant</h3>
-              <p class="timeline-meta">OpenText Software GmbH | Munich, Germany | 05/2014 – 12/2018</p>
-            </div>
-            <ul class="list-clean">
-              <li>Software project management</li>
-              <li>Process design and development of process-supporting software solutions for external customers</li>
-              <li>Support of pre-sales activities for global software implementation projects</li>
-              <li>Driving the development of specialized software solutions and initiatives for regulated customers</li>
-              <li>Supporting internal product management in product design and industry-specific solutions</li>
-              <li>Management of an international development team</li>
-            </ul>
-          </article>
-
-          <article class="timeline-item">
-            <div class="timeline-top">
-              <h3>IT Consultant</h3>
-              <p class="timeline-meta">NNIT Germany GmbH | Munich, Germany | 02/2013 – 04/2014</p>
-            </div>
-            <p>
-              Consulting role in a regulated industry context, contributing to digital and IT-related initiatives.
-            </p>
-          </article>
-
-          <article class="timeline-item">
-            <div class="timeline-top">
-              <h3>Application Project Manager</h3>
-              <p class="timeline-meta">Boehringer-Ingelheim Pharma GmbH &amp; Co. KG | Biberach, Germany | 01/2008 – 01/2013</p>
-            </div>
-            <p>
-              Project management role within a pharmaceutical environment, building the foundation for later business-facing digital and IT leadership responsibilities.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-alt">
-      <div class="container card-grid card-grid-2">
-        <article class="panel">
-          <h2>Education</h2>
-          <div class="education-item">
-            <h3>International Master of Business Administration</h3>
-            <p>Professional School of Business &amp; Technology, University of Applied Sciences Kempten</p>
-            <p>Specialization in change management, consulting and leadership in an international environment.</p>
+        <Section alt label="Education &amp; Skills">
+          <div className="cardgrid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+            <Panel title="Education">
+              <div>
+                <h3 style={{ margin: '0 0 4px', fontSize: 16, fontWeight: 600 }}>International Master of Business Administration</h3>
+                <p style={{ margin: '0 0 4px', color: 'var(--fg-3)' }}>University of Applied Sciences Kempten</p>
+                <p style={{ margin: 0, color: 'var(--fg-3)', fontSize: 14 }}>Change management, consulting, leadership.</p>
+              </div>
+              <div style={{ marginTop: 20 }}>
+                <h3 style={{ margin: '0 0 4px', fontSize: 16, fontWeight: 600 }}>Diploma Engineer (FH), Biomedical Engineering</h3>
+                <p style={{ margin: 0, color: 'var(--fg-3)' }}>University of Applied Sciences Jena</p>
+              </div>
+            </Panel>
+            <Panel title="Skills">
+              <p style={{ margin: 0, color: 'var(--fg-3)' }}>Selected areas of technical, digital and domain-related expertise.</p>
+              <TagList tags={SKILLS} highlight={['Generative AI', 'IT Business Partnering']} />
+            </Panel>
           </div>
-          <div class="education-item">
-            <h3>Diploma Engineer (FH), Biomedical Engineering</h3>
-            <p>University of Applied Sciences Jena</p>
+        </Section>
+
+        <DownloadBand />
+
+        <Section id="contact" label="Contact">
+          <div className="cardgrid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+            <ContactPanel />
+            <Panel title="Final Note">
+              <p style={{ margin: '0 0 12px', color: 'var(--fg-3)', lineHeight: 1.65 }}>
+                Please feel free to get in touch if you would like to connect or discuss relevant leadership,
+                digital transformation or business partnering opportunities.
+              </p>
+              <p style={{ margin: 0, color: 'var(--fg-3)', lineHeight: 1.65 }}>
+                This website is intended as a compact introduction and a direct entry point to my professional profile.
+              </p>
+            </Panel>
           </div>
-        </article>
+        </Section>
+      </main>
+      <SiteFooter />
+    </>
+  );
+}
 
-        <article class="panel">
-          <h2>Skills</h2>
-          <p>Selected areas of technical, digital and domain-related expertise.</p>
-          <div class="tag-list">
-            <span class="tag">Generative AI</span>
-            <span class="tag">Digital Solutions</span>
-            <span class="tag">IT Business Partnering</span>
-            <span class="tag">Portfolio Coordination</span>
-            <span class="tag">Project Management</span>
-            <span class="tag">R&amp;D Systems</span>
-            <span class="tag">Product Supply</span>
-            <span class="tag">M365</span>
-            <span class="tag">Power BI Basics</span>
-            <span class="tag">SharePoint</span>
-            <span class="tag">Veeva Vault</span>
-            <span class="tag">RPA</span>
-            <span class="tag">Python Basics</span>
-            <span class="tag">HTML &amp; JavaScript</span>
-            <span class="tag">SQL</span>
-            <span class="tag">GxP / GAMP5 / Annex 11</span>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="download-box">
-          <div>
-            <h2>CV Download</h2>
-            <p>A PDF version of my CV is available for download.</p>
-          </div>
-          <a class="button button-primary" href="assets/Matthias_Krautheim_CV.pdf">Download PDF CV</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="contact">
-      <div class="container card-grid card-grid-2">
-        <article class="panel">
-          <h2>Contact</h2>
-          <p>
-            I welcome professional conversations regarding digital leadership, business-facing IT roles,
-            regulated environments, digital solutions and related opportunities.
-          </p>
-          <p><strong>Email:</strong> <a href="mailto:matthiaskrautheim@yahoo.de">matthiaskrautheim@yahoo.de</a></p>
-          <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/matthias-krautheim" target="_blank" rel="noreferrer">linkedin.com/in/matthias-krautheim</a></p>
-          <p><strong>Location:</strong> Penzing, Bavaria, Germany</p>
-        </article>
-
-        <article class="panel">
-          <h2>Final Note</h2>
-          <p>
-            Please feel free to get in touch if you would like to connect or discuss relevant leadership,
-            digital transformation or business partnering opportunities.
-          </p>
-          <p>
-            This website is intended as a compact introduction and a direct entry point to my professional profile.
-          </p>
-        </article>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-wrap">
-      <p>© Matthias Krautheim | Professional Profile Website</p>
-      <nav aria-label="Footer navigation">
-        <a href="#">Imprint</a>
-        <a href="#">Privacy Policy</a>
-      </nav>
-    </div>
-  </footer>
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
 </body>
 </html>
